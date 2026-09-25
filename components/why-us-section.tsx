@@ -10,12 +10,12 @@ export function WhyUsSection() {
     <section
       id="why-us"
       aria-labelledby="why-us-heading"
-      className="border-b border-red-500/80 bg-neutral-900 text-white"
+      className="border-b border-gray-300/50 bg-gradient-to-b from-slate-50 to-white"
     >
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[minmax(0,1fr)_2fr] lg:items-center lg:gap-12 lg:py-16">
         <h2
           id="why-us-heading"
-          className="text-2xl font-black text-white sm:text-3xl"
+          className="text-2xl font-black text-black sm:text-3xl"
         >
           Почему мы?
         </h2>
@@ -23,8 +23,8 @@ export function WhyUsSection() {
         <ul className="grid gap-6 sm:grid-cols-2">
           {reasons.map((text, index) => (
             <li key={index}>
-              <article className="h-full rounded-3xl border border-red-500/50 bg-white/5 p-6 shadow-[0_18px_35px_rgba(0,0,0,0.18)] transition-transform duration-300 hover:-translate-y-1">
-                <p className="text-sm leading-relaxed text-neutral-200">{text}</p>
+              <article className="h-full rounded-3xl border border-gray-300/40 bg-gradient-to-br from-red-50 to-white p-6 shadow-[0_4px_12px_rgba(220,38,38,0.04)] transition-transform duration-300 hover:-translate-y-1">
+                <p className="text-sm leading-relaxed text-slate-700">{text}</p>
               </article>
             </li>
           ))}

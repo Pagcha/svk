@@ -16,13 +16,13 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 border-b border-red-500/80 bg-neutral-950/95 shadow-[0_10px_30px_rgba(0,0,0,0.15)] backdrop-blur-sm">
+    <header className="sticky top-0 z-50 border-b border-red-600/30 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.04)] backdrop-blur-sm">
       <div className="mx-auto flex max-w-6xl items-center justify-center gap-8 px-4 py-2 sm:px-6 md:justify-center">
         <Link href="/" className="flex shrink-0 items-center" aria-label="СВК Технолоджи — на главную">
           <img
             src="/logos/svk-logo.png"
             alt="СВК Технолоджи"
-            className="h-8 w-auto object-contain brightness-0 invert"
+            className="h-8 w-auto object-contain"
           />
         </Link>
 
@@ -32,7 +32,7 @@ export function SiteHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className="flex items-center border-l border-white/10 px-5 text-sm font-semibold tracking-[0.14em] text-white/80 transition-colors last:border-r last:border-white/10 hover:text-red-400"
+              className="flex items-center border-l border-gray-300 px-5 text-sm font-semibold tracking-[0.14em] text-slate-700 transition-colors last:border-r last:border-gray-300 hover:text-red-700"
             >
               {item.label}
             </Link>
@@ -43,7 +43,7 @@ export function SiteHeader() {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="inline-flex items-center justify-center rounded-md p-2 text-neutral-800 md:hidden"
+          className="inline-flex items-center justify-center rounded-md p-2 text-slate-700 md:hidden"
           aria-expanded={open}
           aria-controls="mobile-nav"
           aria-label={open ? "Закрыть меню" : "Открыть меню"}
@@ -57,7 +57,7 @@ export function SiteHeader() {
         id="mobile-nav"
         aria-label="Мобильная навигация"
         className={cn(
-          "border-t border-red-500/60 bg-neutral-950 md:hidden",
+          "border-t border-gray-300 bg-white md:hidden",
           open ? "block" : "hidden",
         )}
       >
@@ -67,7 +67,7 @@ export function SiteHeader() {
               <Link
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="block border-b border-white/10 py-3 text-sm font-semibold tracking-[0.14em] text-white/80 last:border-b-0 hover:text-red-400"
+                className="block border-b border-gray-300 py-3 text-sm font-semibold tracking-[0.14em] text-slate-700 last:border-b-0 hover:text-red-700"
               >
                 {item.label}
               </Link>

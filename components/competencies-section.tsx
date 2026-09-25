@@ -84,12 +84,12 @@ export function CompetenciesSection() {
       ref={sectionRef}
       id="competencies"
       aria-labelledby="competencies-heading"
-      className="border-b border-red-500/80 bg-neutral-50"
+      className="border-b border-gray-300/50 bg-gradient-to-b from-slate-50 to-white"
     >
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
         <h2
           id="competencies-heading"
-          className="mb-10 text-center text-2xl font-black text-neutral-900 sm:text-3xl"
+          className="mb-10 text-center text-2xl font-black text-black sm:text-3xl"
         >
           Наши основные компетенции
         </h2>
@@ -100,23 +100,23 @@ export function CompetenciesSection() {
             return (
               <li key={title}>
                 <article
-                  className={`card-appear flex flex-col overflow-hidden rounded-3xl border border-red-200 bg-white shadow-[0_20px_50px_rgba(17,17,17,0.04)] sm:flex-row ${
+                  className={`card-appear flex flex-col overflow-hidden rounded-3xl border border-gray-300/40 bg-white shadow-[0_4px_12px_rgba(0,0,0,0.04)] sm:flex-row ${
                     iconFirst ? "" : "sm:flex-row-reverse"
                   }`}
                 >
                   <div
-                    className={`flex shrink-0 items-center justify-center bg-neutral-950 p-6 sm:w-40 ${
+                    className={`flex shrink-0 items-center justify-center bg-gradient-to-br from-red-600 to-red-700 p-6 sm:w-40 ${
                       iconFirst ? "sm:border-r" : "sm:border-l"
-                    } sm:border-red-500/80`}
+                    } sm:border-red-300/40`}
                   >
-                    <Icon className="h-12 w-12 text-red-500" aria-hidden="true" />
+                    <Icon className="h-12 w-12 text-white" aria-hidden="true" />
                   </div>
 
                   <div className="flex flex-col justify-center gap-2 p-6 sm:p-8">
-                    <h3 className="text-lg font-bold text-neutral-900">
+                    <h3 className="text-lg font-bold text-black">
                       {title}
                     </h3>
-                    <p className="text-pretty leading-relaxed text-neutral-700">
+                    <p className="text-pretty leading-relaxed text-slate-700">
                       {description}
                     </p>
                   </div>
