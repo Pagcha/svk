@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react"
 import { Cog, ShieldCheck, Wrench } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
+import { setupRevealOnViewport } from "@/lib/utils"
 
 type Competency = {
   icon: LucideIcon
@@ -38,9 +39,6 @@ export function CompetenciesSection() {
     const section = sectionRef.current
     if (!section) return
 
-    const heading = section.querySelector("h2")
-    if (!heading) return
-
     const cards = Array.from(section.querySelectorAll("article"))
 
     const showCards = () => {
@@ -51,32 +49,10 @@ export function CompetenciesSection() {
       })
     }
 
-    if (!("IntersectionObserver" in window)) {
-      showCards()
-      return
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            showCards()
-            observer.disconnect()
-          }
-        })
-      },
-      { threshold: 0.4 },
-    )
-
-    observer.observe(heading)
-    const fallbackTimer = window.setTimeout(() => {
-      showCards()
-    }, 300)
-
-    return () => {
-      observer.disconnect()
-      window.clearTimeout(fallbackTimer)
-    }
+    return setupRevealOnViewport(section, showCards, {
+      threshold: 0.25,
+      viewportFactor: 0.85,
+    })
   }, [])
 
   return (
@@ -100,22 +76,31 @@ export function CompetenciesSection() {
             return (
               <li key={title}>
                 <article
-                  className={`card-appear flex flex-col overflow-hidden rounded-3xl border border-gray-300/40 bg-white shadow-[0_4px_12px_rgba(0,0,0,0.04)] sm:flex-row ${
+                  className={`competency-card card-appear group relative flex flex-col overflow-hidden rounded-3xl border border-gray-300/40 bg-white shadow-[0_10px_24px_rgba(15,23,42,0.04)] transition-all duration-500 ease-out hover:-translate-y-1 hover:border-red-200 hover:shadow-[0_18px_36px_rgba(239,68,68,0.12)] sm:flex-row ${
                     iconFirst ? "" : "sm:flex-row-reverse"
                   }`}
+                  style={{ transitionDelay: `${index * 120}ms` }}
                 >
+                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(239,68,68,0.12),transparent_42%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
                   <div
-                    className={`flex shrink-0 items-center justify-center bg-gradient-to-br from-red-600 to-red-700 p-6 sm:w-40 ${
+                    className={`relative z-10 flex shrink-0 items-center justify-center bg-gradient-to-br from-red-600 via-red-500 to-red-700 p-6 sm:w-44 ${
                       iconFirst ? "sm:border-r" : "sm:border-l"
                     } sm:border-red-300/40`}
                   >
-                    <Icon className="h-12 w-12 text-white" aria-hidden="true" />
+                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/25 bg-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.22)] backdrop-blur-sm transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
+                      <Icon
+                        className="competency-icon h-8 w-8 text-white transition-transform duration-500 group-hover:scale-110"
+                        aria-hidden="true"
+                      />
+                    </div>
                   </div>
 
-                  <div className="flex flex-col justify-center gap-2 p-6 sm:p-8">
-                    <h3 className="text-lg font-bold text-black">
-                      {title}
-                    </h3>
+                  <div className="relative z-10 flex flex-col justify-center gap-2 p-6 sm:p-8">
+                    <div className="mb-1 flex items-center gap-2">
+                      <span className="h-2.5 w-2.5 rounded-full bg-red-500 shadow-[0_0_14px_rgba(239,68,68,0.7)]" />
+                      <h3 className="text-lg font-bold text-black">{title}</h3>
+                    </div>
                     <p className="text-pretty leading-relaxed text-slate-700">
                       {description}
                     </p>
