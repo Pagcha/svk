@@ -40,12 +40,17 @@ export function PartnersSection() {
 
     const cards = Array.from(section.querySelectorAll("li"))
     const revealCards = () => {
+      const timers: number[] = []
+
       cards.forEach((card, index) => {
-        setTimeout(() => {
+        const t = window.setTimeout(() => {
           const inner = card.querySelector("div")
           if (inner) inner.classList.add("is-visible")
         }, index * 100)
+        timers.push(t)
       })
+
+      return () => timers.forEach((id) => clearTimeout(id))
     }
 
     return setupRevealOnViewport(section, revealCards, {

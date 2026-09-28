@@ -42,11 +42,18 @@ export function CompetenciesSection() {
     const cards = Array.from(section.querySelectorAll("article"))
 
     const showCards = () => {
+      const timers: number[] = []
+
       cards.forEach((card, index) => {
-        setTimeout(() => {
+        const t = window.setTimeout(() => {
           card.classList.add("is-visible")
         }, index * 120)
+        timers.push(t)
       })
+
+      return () => {
+        timers.forEach((id) => clearTimeout(id))
+      }
     }
 
     return setupRevealOnViewport(section, showCards, {

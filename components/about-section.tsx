@@ -13,11 +13,18 @@ export function AboutSection() {
 
     const items = Array.from(section.querySelectorAll("[data-reveal]"))
     const revealItems = () => {
+      const timers: number[] = []
+
       items.forEach((item, index) => {
-        setTimeout(() => {
+        const t = window.setTimeout(() => {
           item.classList.add("is-visible")
         }, index * 120)
+        timers.push(t)
       })
+
+      return () => {
+        timers.forEach((id) => clearTimeout(id))
+      }
     }
 
     return setupRevealOnViewport(section, revealItems, {
@@ -31,7 +38,7 @@ export function AboutSection() {
       ref={ref}
       id="about"
       aria-labelledby="about-heading"
-      className="border-b border-gray-300/50 bg-gradient-to-b from-slate-50 to-white"
+      className="flex min-h-screen items-center border-b border-gray-300/50 bg-gradient-to-b from-slate-50 to-white"
     >
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
         <h2
@@ -48,12 +55,13 @@ export function AboutSection() {
           >
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(239,68,68,0.12),transparent_42%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
             <p className="relative z-10 text-pretty leading-relaxed text-slate-700">
-              Компания «СВК Технолоджи» специализируется на комплексных
-              инженерных решениях: от проектирования и подбора оборудования до
-              монтажа, пусконаладки и сервисного обслуживания. Мы работаем с
-              ведущими производителями и предлагаем индивидуальный подход к
-              каждому проекту, гарантируя надёжность и высокое качество на всех
-              этапах сотрудничества.
+              СВК Технолоджи — инженерные решения под ключ для вашего бизнеса и производства.
+              Мы берём на себя полный цикл инженерно-технических работ: от первичного аудита
+              и проектирования до поставки, монтажа и пусконаладки инженерных систем.
+              Тесное сотрудничество с ведущими мировыми и отечественными производителями 
+              оборудования позволяет нам находить оптимальные технические решения под задачи
+              любой сложности. Мы гарантируем высокую надёжность, строгое соблюдение сроков
+              и обеспечиваем полное сервисное обслуживание на протяжении всего срока эксплуатации систем.
             </p>
           </div>
 

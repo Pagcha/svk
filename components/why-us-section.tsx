@@ -19,11 +19,16 @@ export function WhyUsSection() {
 
     const cards = Array.from(section.querySelectorAll("article"))
     const revealCards = () => {
+      const timers: number[] = []
+
       cards.forEach((card, index) => {
-        setTimeout(() => {
+        const t = window.setTimeout(() => {
           card.classList.add("is-visible")
         }, index * 120)
+        timers.push(t)
       })
+
+      return () => timers.forEach((id) => clearTimeout(id))
     }
 
     return setupRevealOnViewport(section, revealCards, {
@@ -50,7 +55,7 @@ export function WhyUsSection() {
             className="text-2xl font-black text-black sm:text-3xl"
           >
             <span className="bg-gradient-to-r from-red-600 via-red-500 to-slate-900 bg-clip-text text-transparent">
-              Наши основные преимущества
+              Наши главнвые преимущества
             </span>
           </h2>
         </div>
