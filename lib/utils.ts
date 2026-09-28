@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export function setupRevealOnViewport(
   target: Element | null,
-  reveal: () => void,
+  reveal: () => void | (() => void),
   options?: { threshold?: number; viewportFactor?: number },
 ) {
   if (!target) return undefined
@@ -17,13 +17,37 @@ export function setupRevealOnViewport(
   const hasIntersectionObserver =
     typeof window !== 'undefined' && 'IntersectionObserver' in window
 
+  const resetRevealState = () => {
+    target.querySelectorAll('.is-visible').forEach((element) => {
+      element.classList.remove('is-visible')
+    })
+  }
+
   if (!hasIntersectionObserver) {
+    let hasBeenTriggered = false
+    let activeCleanup: (() => void) | undefined
+
     const handleScroll = () => {
       const rect = target.getBoundingClientRect()
-      if (rect.top < window.innerHeight * viewportFactor) {
-        reveal()
-        window.removeEventListener('scroll', handleScroll)
+      const isInViewport = rect.top < window.innerHeight * viewportFactor
+
+      if (isInViewport) {
+        if (!hasBeenTriggered) {
+          resetRevealState()
+          const result = reveal()
+          if (typeof result === 'function') activeCleanup = result
+          hasBeenTriggered = true
+        }
+        return
       }
+
+      // left viewport: remove visible classes and cancel any pending timers
+      if (hasBeenTriggered) {
+        if (activeCleanup) activeCleanup()
+        resetRevealState()
+      }
+
+      hasBeenTriggered = false
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -31,16 +55,33 @@ export function setupRevealOnViewport(
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
+      if (activeCleanup) activeCleanup()
     }
   }
+
+  let hasBeenTriggered = false
+  let activeCleanup: (() => void) | undefined
 
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          reveal()
-          observer.disconnect()
+          if (!hasBeenTriggered) {
+            resetRevealState()
+            const result = reveal()
+            if (typeof result === 'function') activeCleanup = result
+            hasBeenTriggered = true
+          }
+          return
         }
+
+        // element left viewport: cancel pending timers and remove visible classes
+        if (hasBeenTriggered) {
+          if (activeCleanup) activeCleanup()
+          resetRevealState()
+        }
+
+        hasBeenTriggered = false
       })
     },
     { threshold },
@@ -49,6 +90,7 @@ export function setupRevealOnViewport(
   observer.observe(target)
 
   return () => {
+    if (activeCleanup) activeCleanup()
     observer.disconnect()
   }
 }
