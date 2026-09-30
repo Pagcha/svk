@@ -1,8 +1,12 @@
 "use client"
 
+<<<<<<< HEAD
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import Image from "next/image"
 import { useCallback, useEffect, useRef, useState } from "react"
+=======
+import { useEffect, useRef } from "react"
+>>>>>>> 550a2b2555c9359bb525f9d6db8dde1ddfee358a
 import { setupRevealOnViewport } from "@/lib/utils"
 
 const partners = [
@@ -68,6 +72,7 @@ const loopedPartners = [...partners, ...partners]
 
 export function PartnersSection() {
   const sectionRef = useRef<HTMLElement | null>(null)
+<<<<<<< HEAD
   const trackRef = useRef<HTMLUListElement | null>(null)
   // Индекс карточки с открытым описанием (тап на тач-устройствах)
   const [activeCard, setActiveCard] = useState<number | null>(null)
@@ -99,10 +104,14 @@ export function PartnersSection() {
   }, [])
 
   // Reveal-анимация: таймеры живут в скоупе эффекта и гарантированно чистятся
+=======
+
+>>>>>>> 550a2b2555c9359bb525f9d6db8dde1ddfee358a
   useEffect(() => {
     const section = sectionRef.current
     if (!section) return
 
+<<<<<<< HEAD
     const timers: number[] = []
     const revealCards = () => {
       const cards = Array.from(section.querySelectorAll("[data-reveal]"))
@@ -175,6 +184,29 @@ export function PartnersSection() {
   const toggleCard = (index: number) =>
     setActiveCard((prev) => (prev === index ? null : index))
 
+=======
+    const cards = Array.from(section.querySelectorAll("li"))
+    const revealCards = () => {
+      const timers: number[] = []
+
+      cards.forEach((card, index) => {
+        const t = window.setTimeout(() => {
+          const inner = card.querySelector("div")
+          if (inner) inner.classList.add("is-visible")
+        }, index * 100)
+        timers.push(t)
+      })
+
+      return () => timers.forEach((id) => clearTimeout(id))
+    }
+
+    return setupRevealOnViewport(section, revealCards, {
+      threshold: 0.2,
+      viewportFactor: 0.9,
+    })
+  }, [])
+
+>>>>>>> 550a2b2555c9359bb525f9d6db8dde1ddfee358a
   return (
     <section
       ref={sectionRef}
@@ -190,6 +222,7 @@ export function PartnersSection() {
           Генеральные партнёры компании
         </h2>
 
+<<<<<<< HEAD
         <div className="relative">
           <div className="pointer-events-none absolute inset-y-0 left-0 z-10 flex items-center">
             <button
@@ -276,6 +309,30 @@ export function PartnersSection() {
             })}
           </ul>
         </div>
+=======
+        <ul className="grid grid-cols-1 gap-4 md:grid-cols-5">
+          {partners.map(({ name, src, description }) => (
+            <li key={name} className="w-full">
+              <div className="partner-card group relative flex aspect-[1/1.45] w-full items-center justify-center overflow-hidden rounded-3xl border border-gray-300/50 bg-gradient-to-br from-white to-slate-50 p-3 shadow-[0_10px_24px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-[0_18px_32px_rgba(239,68,68,0.12)]">
+                <img
+                  src={src}
+                  alt={name}
+                  className="h-full w-full object-contain transition duration-300 group-hover:brightness-75"
+                />
+
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-slate-900/15 opacity-0 transition duration-300 group-hover:opacity-100">
+                  <div className="max-w-[80%] rounded-xl border border-slate-400/40 bg-white/95 px-3 py-2 text-center backdrop-blur-sm">
+                    <div className="text-sm font-bold text-slate-900">{name}</div>
+                    <p className="mt-1 text-[10px] leading-relaxed text-slate-700">
+                      {description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+>>>>>>> 550a2b2555c9359bb525f9d6db8dde1ddfee358a
       </div>
     </section>
   )
