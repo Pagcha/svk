@@ -1,3 +1,8 @@
+"use client"
+
+import { useEffect, useRef } from "react"
+import { setupRevealOnViewport } from "@/lib/utils"
+
 const reasons = [
   "Более 10 лет опыта на рынке. Работаем в сфере промышленного снабжения с 2015 года. За это время мы заслужили доверие крупнейших предприятий региона (включая ПАО «НЛМК» и «Лебедяньмолоко»), успешно решая задачи для тяжелой металлургии и пищевой промышленности.",
   "Сборка строго по вашему ТЗ. Исключаем любые отклонения от конструкторской документации. Собираем пневмомеханизмы и сложные пневмосхемы в точном соответствии с вашими инженерными чертежами, стандартами и спецификациями.",
@@ -6,25 +11,72 @@ const reasons = [
 ]
 
 export function WhyUsSection() {
+  const sectionRef = useRef<HTMLElement | null>(null)
+
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
+
+    const cards = Array.from(section.querySelectorAll("article"))
+    const revealCards = () => {
+      const timers: number[] = []
+
+      cards.forEach((card, index) => {
+        const t = window.setTimeout(() => {
+          card.classList.add("is-visible")
+        }, index * 120)
+        timers.push(t)
+      })
+
+      return () => timers.forEach((id) => clearTimeout(id))
+    }
+
+    return setupRevealOnViewport(section, revealCards, {
+      threshold: 0.2,
+      viewportFactor: 0.9,
+    })
+  }, [])
+
   return (
     <section
+      ref={sectionRef}
       id="why-us"
       aria-labelledby="why-us-heading"
-      className="border-b border-gray-300/50 bg-gradient-to-b from-slate-50 to-white"
+      className="relative overflow-hidden border-b border-gray-300/50 bg-gradient-to-b from-white via-slate-50 to-slate-100"
     >
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[minmax(0,1fr)_2fr] lg:items-center lg:gap-12 lg:py-16">
-        <h2
-          id="why-us-heading"
-          className="text-2xl font-black text-black sm:text-3xl"
-        >
-          Почему мы?
-        </h2>
+
+      <div className="relative mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_2fr] lg:items-center lg:gap-12 lg:py-16">
+        <div className="space-y-4">
+          <span className="inline-flex rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-red-700">
+            Почему мы
+          </span>
+          <h2
+            id="why-us-heading"
+            className="text-2xl font-black text-black sm:text-3xl"
+          >
+            <span className="bg-gradient-to-r from-red-600 via-red-500 to-slate-900 bg-clip-text text-transparent">
+              Наши главнвые преимущества
+            </span>
+          </h2>
+        </div>
 
         <ul className="grid gap-6 sm:grid-cols-2">
           {reasons.map((text, index) => (
             <li key={index}>
-              <article className="h-full rounded-3xl border border-gray-300/40 bg-gradient-to-br from-red-50 to-white p-6 shadow-[0_4px_12px_rgba(220,38,38,0.04)] transition-transform duration-300 hover:-translate-y-1">
-                <p className="text-sm leading-relaxed text-slate-700">{text}</p>
+              <article
+                className="why-card group relative h-full overflow-hidden rounded-3xl border border-red-100 bg-white/85 p-5 shadow-[0_10px_30px_rgba(15,23,42,0.04)] backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-red-200 hover:shadow-[0_18px_32px_rgba(239,68,68,0.12)]"
+                style={{ transitionDelay: `${index * 120}ms` }}
+              >
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(239,68,68,0.12),transparent_38%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <div className="relative z-10 flex h-full flex-col gap-4">
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-red-600 text-sm font-bold text-white shadow-[0_8px_18px_rgba(239,68,68,0.35)]">
+                      {index + 1}
+                    </span>
+                    <span className="h-px flex-1 bg-gradient-to-r from-red-300 via-red-100 to-transparent" />
+                  </div>
+                  <p className="text-sm leading-relaxed text-slate-700">{text}</p>
+                </div>
               </article>
             </li>
           ))}
