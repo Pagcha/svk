@@ -54,8 +54,11 @@ export function ContactSection() {
       ref={ref}
       id="contacts"
       aria-labelledby="contacts-heading"
-      className="relative overflow-hidden border-b border-red-950/40 bg-[radial-gradient(circle_at_top_left,rgba(239,68,68,0.18),transparent_30%),linear-gradient(180deg,#2f0d12_0%,#1c1013_100%)] text-white"
+      className="section-ambient relative overflow-hidden border-b border-red-950/40 bg-[radial-gradient(circle_at_top_left,rgba(239,68,68,0.18),transparent_30%),linear-gradient(180deg,#2f0d12_0%,#1c1013_100%)] text-white"
     >
+      <div className="ambient-orb ambient-orb--1" />
+      <div className="ambient-orb ambient-orb--2" />
+      <div className="ambient-orb ambient-orb--3" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.04),transparent_32%)]" />
 
       <div className="relative mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">

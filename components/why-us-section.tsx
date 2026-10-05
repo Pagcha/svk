@@ -42,8 +42,11 @@ export function WhyUsSection() {
       ref={sectionRef}
       id="why-us"
       aria-labelledby="why-us-heading"
-      className="relative overflow-hidden border-b border-gray-300/50 bg-gradient-to-b from-white via-slate-50 to-slate-100"
+      className="section-ambient relative overflow-hidden border-b border-gray-300/50 bg-gradient-to-b from-white via-slate-50 to-slate-100"
     >
+      <div className="ambient-orb ambient-orb--1" />
+      <div className="ambient-orb ambient-orb--2" />
+      <div className="ambient-orb ambient-orb--3" />
 
       <div className="relative mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_2fr] lg:items-center lg:gap-12 lg:py-16">
         <div className="space-y-4">

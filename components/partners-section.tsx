@@ -180,8 +180,10 @@ export function PartnersSection() {
       ref={sectionRef}
       id="partners"
       aria-labelledby="partners-heading"
-      className="border-b border-red-950/10 bg-gradient-to-b from-white to-slate-100"
+      className="section-ambient border-b border-red-950/10 bg-gradient-to-b from-white to-slate-100"
     >
+      <div className="ambient-orb ambient-orb--1" />
+      <div className="ambient-orb ambient-orb--2" />
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
         <h2
           id="partners-heading"
@@ -190,7 +192,7 @@ export function PartnersSection() {
           Генеральные партнёры компании
         </h2>
 
-        <div className="relative">
+        <div className="relative mx-auto w-[95%] max-w-[1400px]">
           <div className="pointer-events-none absolute inset-y-0 left-0 z-10 flex items-center">
             <button
               type="button"
@@ -229,7 +231,7 @@ export function PartnersSection() {
                 <li
                   key={`${name}-${index}`}
                   aria-hidden={isClone || undefined}
-                  className="group relative w-[220px] shrink-0 snap-center"
+                  className="group relative w-[240px] shrink-0 snap-center sm:w-[250px] lg:w-[260px]"
                 >
                   <div
                     data-reveal
@@ -244,13 +246,13 @@ export function PartnersSection() {
                         toggleCard(index)
                       }
                     }}
-                    className="partner-card relative flex aspect-[1/1.45] w-full cursor-pointer items-center justify-center overflow-hidden rounded-3xl border border-gray-300/50 bg-gradient-to-br from-white to-slate-50 p-3 shadow-[0_10px_24px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-[0_18px_32px_rgba(239,68,68,0.12)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
+                    className="partner-card relative flex aspect-[1/1.35] w-full cursor-pointer items-center justify-center overflow-hidden rounded-3xl border border-gray-300/50 bg-gradient-to-br from-white to-slate-50 p-3 shadow-[0_10px_24px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-[0_18px_32px_rgba(239,68,68,0.12)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
                   >
                     <Image
                       src={src}
                       alt={name}
                       fill
-                      sizes="220px"
+                      sizes="(max-width: 640px) 220px, (max-width: 1024px) 240px, 260px"
                       className={`object-contain p-3 transition duration-300 group-hover:brightness-75 ${
                         isActive ? "brightness-75" : ""
                       }`}
@@ -265,7 +267,7 @@ export function PartnersSection() {
                         <div className="text-sm font-bold text-slate-900">
                           {name}
                         </div>
-                        <p className="mt-1 text-[10px] leading-relaxed text-slate-700">
+                        <p className="mt-1 text-[12px] leading-relaxed text-slate-700">
                           {description}
                         </p>
                       </div>

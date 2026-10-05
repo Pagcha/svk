@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils"
 const NAV_ITEMS = [
   { label: "О нас", href: "#about" },
   { label: "Компетенции", href: "#competencies" },
+  { label: "Товары", href: "#products" },
   { label: "Партнёры", href: "#partners" },
   { label: "Контакты", href: "#contacts" },
 ]
