@@ -10,8 +10,11 @@ export function HeroSection() {
     <section
       ref={ref}
       aria-label="Приветствие"
-      className="relative isolate overflow-hidden border-b border-red-600/40 bg-gradient-to-br from-white via-slate-50 to-white"
+      className="section-ambient relative isolate overflow-hidden border-b border-red-600/40 bg-gradient-to-br from-white via-slate-50 to-white"
     >
+      <div className="ambient-orb ambient-orb--1" />
+      <div className="ambient-orb ambient-orb--2" />
+      <div className="ambient-orb ambient-orb--3" />
       <div className="absolute inset-0 -z-10">
         <Image
           src="/about-facility.png"

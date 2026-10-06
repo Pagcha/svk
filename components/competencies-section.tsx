@@ -67,12 +67,14 @@ export function CompetenciesSection() {
       ref={sectionRef}
       id="competencies"
       aria-labelledby="competencies-heading"
-      className="border-b border-gray-300/50 bg-gradient-to-b from-slate-50 to-white"
+      className="section-ambient border-b border-gray-300/50 bg-gradient-to-b from-slate-50 to-white"
     >
+      <div className="ambient-orb ambient-orb--1" />
+      <div className="ambient-orb ambient-orb--2" />
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
         <h2
           id="competencies-heading"
-          className="mb-10 text-center text-2xl font-black text-black sm:text-3xl"
+          className="mb-10 bg-gradient-to-r from-red-700 via-red-500 to-slate-900 bg-clip-text text-center text-[clamp(1.7rem,2.2vw,2.5rem)] font-black leading-[1.08] tracking-[-0.04em] text-transparent"
         >
           Наши основные компетенции
         </h2>

@@ -42,8 +42,11 @@ export function WhyUsSection() {
       ref={sectionRef}
       id="why-us"
       aria-labelledby="why-us-heading"
-      className="relative overflow-hidden border-b border-gray-300/50 bg-gradient-to-b from-white via-slate-50 to-slate-100"
+      className="section-ambient relative overflow-hidden border-b border-gray-300/50 bg-gradient-to-b from-white via-slate-50 to-slate-100"
     >
+      <div className="ambient-orb ambient-orb--1" />
+      <div className="ambient-orb ambient-orb--2" />
+      <div className="ambient-orb ambient-orb--3" />
 
       <div className="relative mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_2fr] lg:items-center lg:gap-12 lg:py-16">
         <div className="space-y-4">
@@ -52,11 +55,9 @@ export function WhyUsSection() {
           </span>
           <h2
             id="why-us-heading"
-            className="text-2xl font-black text-black sm:text-3xl"
+            className="bg-gradient-to-r from-red-700 via-red-500 to-slate-900 bg-clip-text text-[clamp(1.7rem,2.2vw,2.5rem)] font-black leading-[1.08] tracking-[-0.04em] text-transparent"
           >
-            <span className="bg-gradient-to-r from-red-600 via-red-500 to-slate-900 bg-clip-text text-transparent">
-              Наши главнвые преимущества
-            </span>
+            Наши главнвые преимущества
           </h2>
         </div>
 
