@@ -56,6 +56,7 @@ export default function ProductsSection() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.setAttribute("data-reveal-visible", "true");
+            entry.target.setAttribute("data-reveal-visible", "true");
             observer.unobserve(entry.target);
           }
         });
@@ -67,6 +68,7 @@ export default function ProductsSection() {
 
     elements.forEach((element) => observer.observe(element));
 
+    return () => observer.disconnect();
     return () => observer.disconnect();
   }, []);
 
@@ -85,7 +87,33 @@ export default function ProductsSection() {
             Товары
           </h2>
         </div>
+    <section
+      id="products"
+      className="relative overflow-hidden bg-[radial-gradient(circle_at_top_left,rgba(239,68,68,0.12),transparent_38%),linear-gradient(180deg,#ffffff_0%,#fff7f7_38%,#f8fafc_100%)] py-[clamp(72px,8vw,120px)] text-slate-900"
+    >
+      <div className="relative z-10 mx-auto max-w-[1150px] px-5 sm:px-6">
+        <div
+          data-reveal
+          data-reveal-visible="false"
+          className="mb-7 opacity-0 translate-y-6 transition-all duration-700 ease-out data-[reveal-visible=true]:opacity-100 data-[reveal-visible=true]:translate-y-0"
+        >
+          <h2 className="m-0 bg-gradient-to-r from-red-700 via-red-500 to-slate-900 bg-clip-text text-[clamp(2rem,3vw,3.2rem)] font-black leading-[1.08] tracking-[-0.05em] text-transparent">
+            Товары
+          </h2>
+        </div>
 
+        <div className="grid gap-[18px] md:grid-cols-2 xl:grid-cols-4">
+          {categoryGroups.map(({ category, items }, groupIndex) => (
+            <div
+              key={category}
+              data-reveal
+              data-reveal-visible="false"
+              className="flex min-w-0 flex-col gap-3 opacity-0 translate-y-6 transition-all duration-700 ease-out data-[reveal-visible=true]:opacity-100 data-[reveal-visible=true]:translate-y-0"
+              style={{ transitionDelay: `${groupIndex * 80}ms` }}
+            >
+              <div className="inline-flex items-center justify-center rounded-full border border-red-200 bg-red-50 px-3 py-2 text-[0.68rem] font-extrabold uppercase tracking-[0.1em] text-red-700">
+                {category}
+              </div>
         <div className="grid gap-[18px] md:grid-cols-2 xl:grid-cols-4">
           {categoryGroups.map(({ category, items }, groupIndex) => (
             <div
