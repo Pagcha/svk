@@ -12,33 +12,33 @@ const categoryGroups = [
   {
     category: "Актуаторы",
     items: [
-      { name: "Пневмоцилиндры", category: "Актуаторы", image: "https://www.pemaks.ru/upload/dev2fun.imagecompress/webp/iblock/323/s0cc8gzgrkbth5gkkkan0vy13w3sr8tu/2.webp" },
-      { name: "Пневмоприводы", category: "Актуаторы", image: "https://www.pemaks.ru/upload/dev2fun.imagecompress/webp/iblock/323/s0cc8gzgrkbth5gkkkan0vy13w3sr8tu/2.webp" },
-      { name: "Пневмомоторы", category: "Актуаторы", image: "https://www.pemaks.ru/upload/dev2fun.imagecompress/webp/iblock/323/s0cc8gzgrkbth5gkkkan0vy13w3sr8tu/2.webp" },
+      { name: "Пневмоцилиндры", category: "Актуаторы", image: "/products/cilinder.png" },
+      { name: "Пневмоприводы", category: "Актуаторы", image: "/products/povorotniy.png" },
+      { name: "Пневмомоторы", category: "Актуаторы", image: "/products/motor.png" },
     ],
   },
   {
     category: "Пневмомагистраль",
     items: [
-      { name: "Фитинги", category: "Пневмомагистраль", image: "https://www.pemaks.ru/upload/dev2fun.imagecompress/webp/iblock/323/s0cc8gzgrkbth5gkkkan0vy13w3sr8tu/2.webp" },
-      { name: "Трубы и шланги", category: "Пневмомагистраль", image: "https://www.pemaks.ru/upload/dev2fun.imagecompress/webp/iblock/323/s0cc8gzgrkbth5gkkkan0vy13w3sr8tu/2.webp" },
-      { name: "Блоки подготовки воздуха", category: "Пневмомагистраль", image: "https://www.pemaks.ru/upload/dev2fun.imagecompress/webp/iblock/323/s0cc8gzgrkbth5gkkkan0vy13w3sr8tu/2.webp" },
+      { name: "Фитинги", category: "Пневмомагистраль", image: "/products/fistingi.png" },
+      { name: "Трубы и шланги", category: "Пневмомагистраль", image: "/products/trubki.png" },
+      { name: "Блоки подготовки воздуха", category: "Пневмомагистраль", image: "/products/block.png" },
     ],
   },
   {
     category: "Регулировка воздуха",
     items: [
-      { name: "Распределители", category: "Регулировка воздуха", image: "https://www.pemaks.ru/upload/dev2fun.imagecompress/webp/iblock/323/s0cc8gzgrkbth5gkkkan0vy13w3sr8tu/2.webp" },
-      { name: "Редукторы", category: "Регулировка воздуха", image: "https://www.pemaks.ru/upload/dev2fun.imagecompress/webp/iblock/323/s0cc8gzgrkbth5gkkkan0vy13w3sr8tu/2.webp" },
-      { name: "Дроссели", category: "Регулировка воздуха", image: "https://www.pemaks.ru/upload/dev2fun.imagecompress/webp/iblock/323/s0cc8gzgrkbth5gkkkan0vy13w3sr8tu/2.webp" },
+      { name: "Распределители", category: "Регулировка воздуха", image: "/products/raspredblock.png" },
+      { name: "Редукторы", category: "Регулировка воздуха", image: "/products/reductor.png" },
+      { name: "Дроссели", category: "Регулировка воздуха", image: "/products/drossel.png" },
     ],
   },
   {
     category: "Управление",
     items: [
-      { name: "Блоки распределения", category: "Управление", image: "https://www.pemaks.ru/upload/dev2fun.imagecompress/webp/iblock/323/s0cc8gzgrkbth5gkkkan0vy13w3sr8tu/2.webp" },
-      { name: "Датчики и реле", category: "Управление", image: "https://www.pemaks.ru/upload/dev2fun.imagecompress/webp/iblock/323/s0cc8gzgrkbth5gkkkan0vy13w3sr8tu/2.webp" },
-      { name: "Элементы ручного управления", category: "Управление", image: "https://www.pemaks.ru/upload/dev2fun.imagecompress/webp/iblock/323/s0cc8gzgrkbth5gkkkan0vy13w3sr8tu/2.webp" },
+      { name: "Блоки распределения", category: "Управление", image: "/products/raspredblock.png" },
+      { name: "Датчики и реле", category: "Управление", image: "/products/rele.png" },
+      { name: "Элементы ручного управления", category: "Управление", image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80" },
     ],
   },
 ] as const;
@@ -81,7 +81,6 @@ export default function ProductsSection() {
           data-reveal-visible="false"
           className="mb-7 opacity-0 translate-y-6 transition-all duration-700 ease-out data-[reveal-visible=true]:opacity-100 data-[reveal-visible=true]:translate-y-0"
         >
-          
           <h2 className="m-0 bg-gradient-to-r from-red-700 via-red-500 to-slate-900 bg-clip-text text-[clamp(2rem,3vw,3.2rem)] font-black leading-[1.08] tracking-[-0.05em] text-transparent">
             Товары
           </h2>
@@ -110,8 +109,13 @@ export default function ProductsSection() {
                     style={{ transitionDelay: `${index * 40}ms` }}
                   >
                     <div
-                      className="group relative aspect-[5/4] w-full bg-cover bg-center transition duration-700 ease-out group-hover:scale-105"
-                      style={{ backgroundImage: `url(${product.image})` }}
+                      className="group relative aspect-[5/4] w-full bg-center bg-no-repeat transition duration-700 ease-out group-hover:scale-105"
+                      style={{
+                        backgroundImage: `url(${product.image})`,
+                        backgroundColor: "#fff",
+                        backgroundSize: "contain",
+                        backgroundPosition: "center",
+                      }}
                       aria-label={product.name}
                     >
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/15 to-slate-900/10 transition duration-300 group-hover:from-slate-900/75 group-hover:via-slate-900/25" />

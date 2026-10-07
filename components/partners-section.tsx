@@ -41,22 +41,26 @@ const partners = [
     src: "/logos/aignep.png",
     description:
       "Итальянский производитель премиальных фитингов, быстроразъемных соединений и пневмораспределителей. Компания известна непревзойденной точностью изготовления, высокими стандартами безопасности и эстетичным дизайном каждого узла.",
-  }, {
+  },
+  {
     name: "Dalgakiran",
     src: "/logos/dalgakiran.png",
     description:
       "Международный гигант с турецкими корнями, один из ведущих производителей компрессорного оборудования и систем подготовки сжатого воздуха. Оборудование компании славится высокой производительностью, энергоэффективностью и стабильной работой в непрерывном цикле.",
-  }, {
+  },
+  {
     name: "Smarta",
     src: "/logos/smarta.webp",
     description:
       "Специализированный бренд, предлагающий современную запорно-регулирующую арматуру и элементы управления пневматическими системами. Продукция сочетает в себе компактные габариты, простоту монтажа и надежность при работе с различными рабочими средами.",
-  }, {
+  },
+  {
     name: "Magnus",
     src: "/logos/magnus.png",
     description:
       "Поставщик доступного протекционного и технологичного пневматического оборудования, ориентированного на базовые задачи автоматизации. Бренд привлекает оптимальным балансом стоимости и достойного качества для бюджетоориентированных проектов.",
-  }, {
+  },
+  {
     name: "KipValve",
     src: "/logos/kipvalve.png",
     description:
@@ -69,18 +73,13 @@ const loopedPartners = [...partners, ...partners]
 export function PartnersSection() {
   const sectionRef = useRef<HTMLElement | null>(null)
   const trackRef = useRef<HTMLUListElement | null>(null)
-  // Индекс карточки с открытым описанием (тап на тач-устройствах)
   const [activeCard, setActiveCard] = useState<number | null>(null)
-  // Замеренные метрики трека — пересчитываются при ресайзе
   const metricsRef = useRef({ setWidth: 0, step: 0, maxScroll: 0 })
 
   const prefersReducedMotion = () =>
     typeof window !== "undefined" &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches
 
-  // Замеряем реальную геометрию вместо магических чисел:
-  // setWidth — ширина одного набора карточек (расстояние между оригиналом и клоном),
-  // step — шаг прокрутки (ширина карточки + реальный gap из стилей)
   const measure = useCallback(() => {
     const track = trackRef.current
     if (!track) return
@@ -98,7 +97,6 @@ export function PartnersSection() {
     }
   }, [])
 
-  // Reveal-анимация: таймеры живут в скоупе эффекта и гарантированно чистятся
   useEffect(() => {
     const section = sectionRef.current
     if (!section) return
@@ -107,10 +105,7 @@ export function PartnersSection() {
     const revealCards = () => {
       const cards = Array.from(section.querySelectorAll("[data-reveal]"))
       cards.forEach((card, index) => {
-        const t = window.setTimeout(
-          () => card.classList.add("is-visible"),
-          index * 100
-        )
+        const t = window.setTimeout(() => card.classList.add("is-visible"), index * 100)
         timers.push(t)
       })
     }
@@ -126,7 +121,6 @@ export function PartnersSection() {
     }
   }, [])
 
-  // Замер при монтировании и пересчёт при изменении размеров
   useEffect(() => {
     measure()
     const track = trackRef.current
@@ -136,9 +130,6 @@ export function PartnersSection() {
     return () => observer.disconnect()
   }, [measure])
 
-  // Бесконечность для ЛЮБОГО способа прокрутки: кнопки, свайп, колесо, клавиатура.
-  // У границы мгновенно переносим позицию ровно на setWidth — контент там
-  // идентичен, поэтому прыжок визуально незаметен.
   const handleScroll = useCallback(() => {
     const track = trackRef.current
     if (!track) return
@@ -158,8 +149,6 @@ export function PartnersSection() {
     const { setWidth, step, maxScroll } = metricsRef.current
     if (setWidth <= 0 || step <= 0) return
 
-    // Если плавный скролл упёрся бы в физический край — сначала незаметно
-    // переносимся на идентичную позицию, потом скроллим плавно
     if (direction === 1 && track.scrollLeft + step > maxScroll - 1) {
       track.scrollLeft -= setWidth
     } else if (direction === -1 && track.scrollLeft - step < 1) {
@@ -264,12 +253,8 @@ export function PartnersSection() {
                       }`}
                     >
                       <div className="max-w-[80%] rounded-xl border border-slate-400/40 bg-white/95 px-3 py-2 text-center backdrop-blur-sm">
-                        <div className="text-sm font-bold text-slate-900">
-                          {name}
-                        </div>
-                        <p className="mt-1 text-[12px] leading-relaxed text-slate-900 bold">
-                          {description}
-                        </p>
+                        <div className="text-sm font-bold text-slate-900">{name}</div>
+                        <p className="mt-1 text-[12px] leading-relaxed text-slate-700">{description}</p>
                       </div>
                     </div>
                   </div>
